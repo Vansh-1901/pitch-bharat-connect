@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, TrendingUp, Lightbulb, Zap, Rocket } from "lucide-react";
 import { motion } from "framer-motion";
+import Galaxy from "@/components/Galaxy";
 
-const floatingCards = [
+const Cards = [
   { icon: TrendingUp, label: "₹2Cr Raised", x: "left-[3%]", y: "top-[28%]", delay: 0 },
   { icon: Lightbulb, label: "SaaS Pitch", x: "right-[6%]", y: "top-[22%]", delay: 0.6 },
   { icon: Zap, label: "D2C Brand", x: "left-[8%]", y: "bottom-[22%]", delay: 1.2 },
@@ -13,12 +14,18 @@ const floatingCards = [
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+      {/* Galaxy background */}
+      <div className="absolute inset-0 -z-20 pointer-events-none">
+        <Galaxy className="w-full h-full" />
+      </div>
+
       {/* Animated gradient background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-secondary/30" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[700px] bg-primary/8 rounded-full blur-[140px] animate-pulse-glow" />
-        <div className="absolute bottom-20 left-1/4 w-[400px] h-[400px] bg-accent/6 rounded-full blur-[100px] animate-pulse-glow" style={{ animationDelay: "1.5s" }} />
-        <div className="absolute top-1/3 right-10 w-[350px] h-[350px] bg-primary/5 rounded-full blur-[90px] animate-pulse-glow" style={{ animationDelay: "3s" }} />
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/90 to-background/85" />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[700px] bg-primary/2 rounded-full blur-[180px]" />
+        <div className="absolute bottom-20 left-1/4 w-[400px] h-[400px] bg-accent/2 rounded-full blur-[140px]" style={{ animationDelay: "1.5s" }} />
+        <div className="absolute top-1/3 right-10 w-[350px] h-[350px] bg-primary/2 rounded-full blur-[130px]" style={{ animationDelay: "3s" }} />
         <div className="absolute inset-0 dot-pattern opacity-25" />
       </div>
 
@@ -26,7 +33,7 @@ const HeroSection = () => {
       {[...Array(6)].map((_, i) => (
         <motion.div
           key={`particle-${i}`}
-          className="absolute w-1 h-1 rounded-full bg-primary/40"
+          className="absolute w-1 h-1 rounded-full bg-primary/20"
           style={{
             left: `${15 + i * 14}%`,
             top: `${20 + (i % 3) * 25}%`,
@@ -45,20 +52,17 @@ const HeroSection = () => {
       ))}
 
       {/* Floating cards */}
-      {floatingCards.map((card, i) => (
-        <motion.div
+      {Cards.map((card, i) => (
+        <div
           key={i}
-          initial={{ opacity: 0, scale: 0.7, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ delay: 0.8 + i * 0.2, duration: 0.7, type: "spring" }}
-          className={`absolute ${card.x} ${card.y} hidden lg:flex items-center gap-2.5 glass rounded-xl px-4 py-2.5 animate-float cursor-default hover:border-primary/40 transition-colors duration-300`}
+          className={`absolute ${card.x} ${card.y} hidden lg:flex items-center gap-2.5 glass rounded-xl px-4 py-2.5 cursor-default hover:border-primary/40 transition-colors duration-300`}
           style={{ animationDelay: `${card.delay}s` }}
         >
           <div className="w-7 h-7 rounded-lg bg-primary/15 flex items-center justify-center">
             <card.icon size={14} className="text-primary" />
           </div>
           <span className="text-xs font-medium text-foreground/80">{card.label}</span>
-        </motion.div>
+        </div>
       ))}
 
       <div className="container relative mx-auto px-4 text-center max-w-4xl">
